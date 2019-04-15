@@ -38,7 +38,7 @@ router.post('/', (req, res, next) =>{
     res.send({success:true,msg:r})
   })
   .catch(e =>{
-    res.send({success:false})
+    res.send({success:false,msg:e})
   }) 
 })
 router.put('/') ,(req,res,next) =>{
