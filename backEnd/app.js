@@ -3,24 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var cors = require('cors');
 
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../', 'front','dist')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// 개발 에서 2개 서버 동시 사용 가능...
+app.use(cors())
+
+// https://youtu.be/uYsIADfSMNk?list=PLjpTKic1SLZu43cFS3YQIKoD2vObq-DVx 
+// express 라우터 강좌 youtube
+app.use('/api/', require('./routes/api'))
+app.use(express.static(path.join(__dirname, '../', 'front','dist')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -35,7 +33,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send({msg: err.message});
 });
 
 module.exports = app;

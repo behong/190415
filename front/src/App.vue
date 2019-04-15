@@ -88,6 +88,11 @@ export default {
         icon: 'help',
         title: 'help',
         to: '/help'
+      },
+      {
+        icon: 'help',
+        title: '사용자관리',
+        to: '/user'
       }
       ],
       miniVariant: false,
