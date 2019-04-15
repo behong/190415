@@ -1,6 +1,7 @@
 var express = require('express');
 var createError = require('http-errors');
 var router = express.Router();
+var User = require('../../../models/users')
 
 const us =[
   {
@@ -18,11 +19,27 @@ const us =[
 ]
 
 router.get('/', function(req, res, next) {
-  res.send({ users: us });
+  User.find()
+    .then( r=>{
+      res.send({success:true,users:r})
+    })
+    .catch(e =>{
+      res.send({success:false})
+    })
+  //res.send({ users: us });
 });
 
 router.post('/', (req, res, next) =>{
-  res.send({success:true})
+  const {name,age} = req.body
+  const u = new User({name,age})
+  //User.create({name:'홍홍'})
+  u.save()
+  .then( r =>{
+    res.send({success:true,msg:r})
+  })
+  .catch(e =>{
+    res.send({success:false})
+  }) 
 })
 router.put('/') ,(req,res,next) =>{
   res.send({success:true})

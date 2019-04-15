@@ -41,12 +41,7 @@ module.exports = app;
 
 const mongoose =  require('mongoose')
 
-const userSchema =  new mongoose.Schema({
-  name:{type: String,default:''},
-  age:{type: Number,default:1}
-})
-
-const User = mongoose.model('User', userSchema)
+const User = require('./models/users')
 
 mongoose.connect('mongodb://localhost:27017/jisou',{ useNewUrlParser: true }, (err) =>{
   
@@ -58,9 +53,9 @@ mongoose.connect('mongodb://localhost:27017/jisou',{ useNewUrlParser: true }, (e
   // .then( r => console.log(r))
   // .catch(e => console.log(e))
   // SELECT R
-   User.find()
-      .then( r => console.log(r))
-      .catch(e => console.log(e))
+  //  User.find()
+  //     .then( r => console.log(r))
+  //     .catch(e => console.log(e))
   // UPDATE U
   // User.updateOne({},{$set:{age : 33 }})
   // .then( r => {
