@@ -37,3 +37,45 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+const mongoose =  require('mongoose')
+
+const userSchema =  new mongoose.Schema({
+  name:{type: String,default:''},
+  age:{type: Number,default:1}
+})
+
+const User = mongoose.model('User', userSchema)
+
+mongoose.connect('mongodb://localhost:27017/jisou',{ useNewUrlParser: true }, (err) =>{
+  
+  if(err) return console.log(err)
+  console.log('몽고 디비 접속 성공')
+  
+  // INSERT C
+  // User.create({name:'홍홍'})
+  // .then( r => console.log(r))
+  // .catch(e => console.log(e))
+  // SELECT R
+   User.find()
+      .then( r => console.log(r))
+      .catch(e => console.log(e))
+  // UPDATE U
+  // User.updateOne({},{$set:{age : 33 }})
+  // .then( r => {
+  //   console.log(r)
+  //   console.log('업데이트 성공')
+  //   // 업데이트 된 결과 다시 then으로 받으셔~
+  //   return User.find()
+  // })
+  // .then(r => console.log(r) )// 업데이트 된 것 find ...
+  // .catch(e => console.log(e))
+  // DELETE D
+  // User.deleteOne({name:'홍홍'})
+  //     .then( r => console.log(r))
+  //     .catch(e => console.log(e))  
+
+})
+
+
