@@ -106,7 +106,7 @@ export default {
       this.age = ''
     },
     getUsers () {
-      axios.get('http://localhost:3000/api/user')
+      axios.get('/api/user')
         .then((res) => {
           // console.log(res)
           this.users = res.data.users
@@ -118,7 +118,7 @@ export default {
     postUser () {
       console.log(this.userAge, this.userName)
       this.dialog = false
-      axios.post('http://localhost:3000/api/user', { name: this.userName, age: this.userAge })
+      axios.post('/api/user', { name: this.userName, age: this.userAge })
         .then(r => {
           this.pop('사용자 등록 성공')
           this.getUsers()
@@ -136,7 +136,7 @@ export default {
     },
     putUser () {
       this.dialog = false
-      axios.put(`http://localhost:3000/api/user/${this.putId}`, {
+      axios.put(`/api/user/${this.putId}`, {
         name: this.userName, age: this.userAge
       })
         .then(r => {
@@ -149,7 +149,7 @@ export default {
         })
     },
     delUser (id) {
-      axios.delete(`http://localhost:3000/api/user/${id}`)
+      axios.delete(`/api/user/${id}`)
         .then(r => {
           this.pop('사용자 삭제 완료')
           this.getUsers()
