@@ -40,13 +40,34 @@ router.post('/', (req, res, next) =>{
   .catch(e =>{
     res.send({success:false,msg:e})
   }) 
-})
-router.put('/') ,(req,res,next) =>{
-  res.send({success:true})
-}
-router.delete('/') ,(req,res,next) =>{
-  res.send({success:true})
-}
+});
+
+router.put('/:id' ,(req,res,next) =>{
+  const id = req.params.id
+  console.log('put === ididididi '+ id  )
+  const {name,age} = req.body
+  User.updateOne({_id: id},{$set:{name,age}})
+  .then( r =>{
+    res.send({success:true,msg:r})
+  })
+  .catch(e =>{
+    res.send({success:false,msg:e})
+  })     
+  res.send({success:true,msg:'put ok'})
+});
+
+router.delete('/:id',(req,res,next) =>{
+  const id = req.params.id
+  console.log('del === ididididi '+ id  )
+  User.deleteOne({_id: id})
+  .then( r =>{
+    res.send({success:true,msg:r})
+  })
+  .catch(e =>{
+    res.send({success:false,msg:e})
+  })     
+  res.send({success:true,msg:'del ok'})
+});
 
 router.all('*', function(req, res, next) {
   //res.send({ title: 'api 진입' });
