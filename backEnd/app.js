@@ -43,7 +43,10 @@ const mongoose =  require('mongoose')
 
 const User = require('./models/users')
 
-mongoose.connect('mongodb://localhost:27017/jisou',{ useNewUrlParser: true }, (err) =>{
+//const cfg = require('../config/conf.json')
+const cfgjs = require('../config/dbcon.js')
+
+mongoose.connect(cfgjs.mongoDbUrl,{ useNewUrlParser: true }, (err) =>{
   
   if(err) return console.log(err)
   console.log('몽고 디비 접속 성공')
@@ -72,5 +75,13 @@ mongoose.connect('mongodb://localhost:27017/jisou',{ useNewUrlParser: true }, (e
   //     .catch(e => console.log(e))  
 
 })
+
+var jwt = require('jsonwebtoken');
+var token = jwt.sign({foo:'bar'},'jisou');
+console.log("토큰 == " + token)
+
+// 디코드 
+var decode = jwt.verify(token,'jisou');
+console.log("디코드 == " + decode);
 
 
